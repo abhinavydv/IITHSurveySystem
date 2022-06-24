@@ -1,0 +1,112 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning}
+
+\title{IITH Survey System}
+\author{Abhinav Yadav\\
+        Beeram Sandya\\
+        Prasham Walvekar}
+
+\begin{document}
+    \maketitle
+
+    \begin{frame}{Table of contents}
+        \tableofcontents
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Introduction}
+        \section{Introduction}
+        \begin{enumerate}
+            \item Will be an android app
+            \item Would be form based app
+            \item Would support various kinds of responses
+            \item Survey creator can share link for users to fill
+            \item Would allow viewing individual responses
+            \item Form creator could also get a summary of all the responses
+            \item No concept of admin. Anyone with IITH account can conduct survey
+        \end{enumerate}
+    \end{frame}
+
+    \begin{frame}{Languages to be used}
+        \section{Languages to be used}
+        \begin{enumerate}
+            \item \textbf{Java:} Internal working and dynamic UI of the android app
+            \item \textbf{XML:} Static UI design of the app
+            \item \textbf{Python:} For the server
+        \end{enumerate}
+        
+    \end{frame}
+
+    \begin{frame}{User-App interaction}
+        \section{User-App interaction}
+        \begin{figure}
+            \includegraphics[width=0.45\columnwidth]{images/AppWorking.png}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}[allowframebreaks]{App Internals}
+        \section{App Internals}
+        \begin{enumerate}
+            \item \large Login Activity
+            \begin{figure}[h]
+                \includegraphics[width=0.2\columnwidth]{images/login.png}
+                \caption{Image here}
+            \end{figure}
+            \pagebreak
+            \item \large Home Activity
+            \begin{figure}
+                \includegraphics[width=0.2\columnwidth]{images/home.png}
+                \caption{Image here}
+            \end{figure}
+
+            \pagebreak
+            \item \large Form Creation Activity
+            \begin{figure}
+                \includegraphics[width=0.25\columnwidth]{images/FormCreation.jpeg}
+                \caption{Image here}
+            \end{figure}
+ 
+        \end{enumerate}
+    \end{frame}
+
+    \begin{frame}{Insider view of form creation}
+        \section{Insider view of form creation}
+        Would consist of questions and answers\\
+        \begin{itemize}
+            \item Question would contain any one or both
+            \begin{itemize}
+                \item Text
+                \item Image
+            \end{itemize}
+
+            \item Answer can be any one of following types
+            \begin{itemize}
+                \item Text Answer
+                \item Multiple choice with radio buttons
+                \item Multiple choice with check boxes
+                \item Link
+                \item File
+                \item Date
+                \item Time
+                \item Rating
+                \item Rating martrix
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{The Server}
+        \section{The Server}
+        \begin{enumerate}
+            \item To be written in Python
+            \item Will use sockets for data transfer
+            \item Will use sqlite3 or MySQL for data management
+            \item The links generated will point to the IP address of the server
+            \item Users on same network as the server can only create or fill the form (as of now as our system would be used as server)
+        \end{enumerate}
+        
+    \end{frame}
+
+\end{document}
