@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import HomePage from "./components/Homepage";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import EditSurvey from "./components/EditSurvey";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container">
+        <div className="columns">
+          <div className="column is-half is-offset-one-quarter">
+            <Routes>
+              <Route exact path="/" element={<HomePage />} />
+
+              <Route path="/login" element={<Login />} />
+
+              <Route path="/register" element={<Register />} />
+              <Route path="/create" element={<EditSurvey />} />
+              <Route path="/edit/:sid" element={<EditSurvey />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </Router>
   );
 }
 

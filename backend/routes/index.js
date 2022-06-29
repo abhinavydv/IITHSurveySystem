@@ -1,24 +1,32 @@
 import express from "express";
-import { getAllResponses, getResponseByRID, getResponsesBySID, newResponse } from "../controllers/Response.js";
+import {
+  getAllResponses,
+  getResponseByRID,
+  getResponsesBySID,
+  newResponse,
+} from "../controllers/Response.js";
 import {
   getAllSurveys,
   getSurveyBySID,
-  getSurveysByUID,
-  newSurvey
+  newSurvey,
 } from "../controllers/Survey.js";
-import { getUserByUID, newUser } from "../controllers/User.js";
+import {
+  newUser,
+  getLoggedInUser,
+  loginUser,
+  logoutUser,
+} from "../controllers/User.js";
 const router = express.Router();
-router.get('/surveys/', getAllSurveys);
-router.get('/surveys/:uid', getSurveysByUID);
-router.get('/survey/:sid', getSurveyBySID);
-router.post('survey/create', newSurvey);
-router.get('responses', getAllResponses);
-router.get('responses/:sid', getResponsesBySID);
-router.get('response/:rid', getResponseByRID);
-router.post('response, newResponse', newResponse);
-router.get('user/:uid', getUserByUID);
-router.post('user', newUser);
-router.post('login')
-// router.patch('/:id', updateProduct);
-// router.delete('/:id', deleteProduct);
+router.get("/surveys/", getAllSurveys);
+// router.get("/surveys/:uid", getSurveysByUID);
+router.get("/survey/:sid", getSurveyBySID);
+router.post("/survey/create", newSurvey);
+router.get("/responses", getAllResponses);
+router.get("/responses/:sid", getResponsesBySID);
+router.get("/response/:rid", getResponseByRID);
+router.post("/response", newResponse);
+router.post("/register", newUser);
+router.get("/login", getLoggedInUser);
+router.post("/login", loginUser);
+router.get("/logout", logoutUser);
 export default router;

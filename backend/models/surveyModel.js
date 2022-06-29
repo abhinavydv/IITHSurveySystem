@@ -11,7 +11,13 @@ const Survey = db.define(
     Creator: {
       type: DataTypes.STRING,
     },
+    Title: {
+      type: DataTypes.STRING,
+    },
     CreatedAt: {
+      type: DataTypes.DATE,
+    },
+    UpdatedAt: {
       type: DataTypes.DATE,
     },
     OpenTill: {
@@ -20,7 +26,7 @@ const Survey = db.define(
   },
   {
     freezeTableName: true,
-    timestamps: false
+    timestamps: false,
   }
 );
 

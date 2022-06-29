@@ -1,25 +1,25 @@
 import Survey from "../models/surveyModel.js";
-import fs from 'fs'
+import fs from "fs";
+
+// export const getAllSurveys = async (req, res) => {
+//   try {
+//     const surveys = await Survey.findAll();
+//     res.json(surveys);
+//   } catch (error) {
+//     res.json({ message: error.message });
+//   }
+// };
 
 export const getAllSurveys = async (req, res) => {
   try {
-    const surveys = await Survey.findAll();
-    res.json(surveys);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-};
-
-export const getSurveysByUID = async (req, res) => {
-  try {
+    // console.log(req.session.user);
     const survey = await Survey.findAll({
       where: {
-        Creator: req.params.uid
-      }
-    })
+        Creator: req.session.user.UID,
+      },
+    });
     res.json(survey);
-  }
-  catch (error) {
+  } catch (error) {
     res.json({ message: error.message });
   }
 };
