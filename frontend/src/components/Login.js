@@ -7,18 +7,23 @@ axios.defaults.withCredentials = true;
 const Login = () => {
   const [uid, setUid] = useState("");
   const [passwd, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
   const history = useNavigate();
-  const login = (e) => {
-    e.preventDefault();
-    axios
+  const login = async (e) => {
+    e.preventDefault(); 
+    await axios
       .post("http://localhost:5000/login", {
         uid: uid,
         passwd: passwd,
       })
       .then((response) => {
         console.log(response);
+        if (response.data.loggedIn) {
+          history("/");
+        } else {
+          setLoginError(true);
+        }
       });
-    history("/");
   };
 
   return (
@@ -48,6 +53,7 @@ const Login = () => {
           <button className="button is-primary">Save</button>
         </div>
       </form>
+      {loginError && <div>Wrong username or password</div>}
     </div>
   );
 };

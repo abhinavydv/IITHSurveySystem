@@ -49,6 +49,7 @@ export const newUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  console.log("Logging in...");
   try {
     const user = await User.findAll({
       where: {

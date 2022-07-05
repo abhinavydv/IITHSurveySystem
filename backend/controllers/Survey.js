@@ -51,7 +51,9 @@ export const getSurveyBySID = async (req, res) => {
 };
 
 export const newSurvey = async (req, res) => {
+  // console.log("H");
   try {
+    // console.log("here");
     const date = new Date();
     const sid = "S" + Object.keys(Survey.findAll()).length + 1;
     await Survey.create({
@@ -69,6 +71,7 @@ export const newSurvey = async (req, res) => {
         date.getMinutes() +
         ":" +
         date.getSeconds(),
+      OpenFrom: req.body.openFrom,
       OpenTill: req.body.openTill,
     });
 
@@ -87,5 +90,8 @@ export const newSurvey = async (req, res) => {
     });
   } catch (error) {
     res.json({ message: error.message });
+    throw error;
   }
 };
+
+export const editSurvey = async (req, res) => {};

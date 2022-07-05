@@ -20,6 +20,9 @@ const Survey = db.define(
     UpdatedAt: {
       type: DataTypes.DATE,
     },
+    OpenFrom: {
+      type: DataTypes.DATE,
+    },
     OpenTill: {
       type: DataTypes.DATE,
     },

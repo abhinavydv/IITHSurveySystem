@@ -17,7 +17,7 @@ function App() {
               <Route path="/login" element={<Login />} />
 
               <Route path="/register" element={<Register />} />
-              <Route path="/create" element={<EditSurvey />} />
+              <Route path="/create" element={<EditSurvey create={true} />} />
               <Route path="/edit/:sid" element={<EditSurvey />} />
             </Routes>
           </div>

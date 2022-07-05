@@ -6,6 +6,7 @@ import {
   newResponse,
 } from "../controllers/Response.js";
 import {
+  editSurvey,
   getAllSurveys,
   getSurveyBySID,
   newSurvey,
@@ -20,7 +21,8 @@ const router = express.Router();
 router.get("/surveys/", getAllSurveys);
 // router.get("/surveys/:uid", getSurveysByUID);
 router.get("/survey/:sid", getSurveyBySID);
-router.post("/survey/create", newSurvey);
+router.post("/survey/:sid", editSurvey);
+router.post("/survey", newSurvey);
 router.get("/responses", getAllResponses);
 router.get("/responses/:sid", getResponsesBySID);
 router.get("/response/:rid", getResponseByRID);
