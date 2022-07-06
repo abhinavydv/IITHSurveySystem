@@ -115,19 +115,27 @@ const EditSurvey = (props) => {
   });
 
   const getSurvey = async () => {
-    await axios.get("/survey/" + sid).then((response) => {
-      setSurvey(response);
-    });
+    if (surveys.length == 0) {
+      await axios
+        .get("http://localhost:5000/survey/" + sid)
+        .then((response) => {
+          setSurvey(response.data.data);
+          // console.log(response);
+        });
+    }
   };
 
   const submitSurvey = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:5000/survey", {
+      .post("http://localhost:5000/survey/" + (sid ? sid : ""), {
         data: surveys,
-        uid: user,
-        openFrom: openFrom,
-        openTill: openTill,
+        metadata: {
+          sid: sid,
+          uid: user,
+          openFrom: openFrom,
+          openTill: openTill,
+        },
       })
       .then((response) => {
         console.log(response);
@@ -152,7 +160,10 @@ const EditSurvey = (props) => {
         type="datetime-local"
         id="openFrom"
         name="openFrom"
-        onChange={(e) => setOpenFrom(e.target.value)}
+        onChange={(e) => {
+          setOpenFrom(e.target.value.replace("T", " ") + ":00");
+          // console.log(e.target.value.replace("T", " ") + ":00");
+        }}
       />
       <br />
       <label htmlFor="openTill">Open Till</label>
@@ -160,7 +171,7 @@ const EditSurvey = (props) => {
         type="datetime-local"
         id="openTill"
         name="openTill"
-        onChange={(e) => setOpenTill(e.target.value)}
+        onChange={(e) => setOpenTill(e.target.value.replace("T", " ") + ":00")}
       />
       <br />
       <br />

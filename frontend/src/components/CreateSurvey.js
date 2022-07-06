@@ -32,11 +32,12 @@ const templates = {
 export const CreateSurvey = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState("");
+  const [SID, setSID] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const history = useNavigate();
-  useEffect(() => {
-    getUser();
-  });
+  // useEffect(() => {
+  //   getUser();
+  // });
   const getUser = async () => {
     await axios.get("http://localhost:5000/login").then((response) => {
       // console.log(response.data);
@@ -49,18 +50,20 @@ export const CreateSurvey = (props) => {
     });
   };
 
-  const submitSurvey = async (e) => {
-    e.preventDefault();
+  const submitSurvey = async () => {
+    // e.preventDefault();
     await axios
       .post("http://localhost:5000/survey", {
         data: surveys,
-        uid: user,
-        openFrom: openFrom,
-        openTill: openTill,
+        metadata: {
+          uid: user,
+          openFrom: "2000-01-01",
+          openTill: "2030-12-31",
+        },
       })
       .then((response) => {
         console.log(response);
-        history("/edit/" + response.data.SID);
+        setSID(response.data.SID);
       });
   };
 
@@ -72,9 +75,13 @@ export const CreateSurvey = (props) => {
   }
 
   useEffect(() => {
-    if (!submitted && isLoggedIn) {
-      submitSurvey();
+    getUser();
+    if (!submitted && isLoggedIn && user) {
       setSubmitted(true);
+      submitSurvey();
+    }
+    if (SID) {
+      return history("/edit/" + SID);
     }
   });
   return <div></div>;

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TextAnswer } from "./QuestionBlock";
 
 const HomePage = () => {
   const [surveys, setSurveys] = useState([]);
   const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useNavigate();
   useEffect(() => {
     getUser();
   });
@@ -59,12 +60,12 @@ const HomePage = () => {
     type: "TextAnswer",
     q: {
       text: "The question",
-      img: "img.png"
+      img: "img.png",
     },
     a: {
-      text: "The answer"
-    }
-  }
+      text: "The answer",
+    },
+  };
 
   return (
     <div>
@@ -97,7 +98,10 @@ const HomePage = () => {
         <tbody>
           {isLoggedIn &&
             surveys.map((survey, index) => (
-              <tr key={survey.SID}>
+              <tr
+                key={survey.SID}
+                onClick={() => history("/edit/" + survey.SID)}
+              >
                 <td>{index + 1}</td>
                 <td>{survey.Title}</td>
                 <td>{survey.OpenTill}</td>

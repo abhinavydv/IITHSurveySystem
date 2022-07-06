@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import EditSurvey from "./components/EditSurvey";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { CreateSurvey } from "./components/CreateSurvey";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
               <Route path="/login" element={<Login />} />
 
               <Route path="/register" element={<Register />} />
-              <Route path="/create" element={<EditSurvey create={true} />} />
+              {/* <Route path="/create" element={<EditSurvey create={true} />} /> */}
+              <Route path="/create" element={<CreateSurvey />} />
               <Route path="/edit/:sid" element={<EditSurvey />} />
             </Routes>
           </div>

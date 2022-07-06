@@ -41,7 +41,7 @@ export const getSurveyBySID = async (req, res) => {
         }
         res.json({
           metadata: survey[0],
-          data: data,
+          data: JSON.parse(data),
         });
       }
     );
@@ -55,10 +55,15 @@ export const newSurvey = async (req, res) => {
   try {
     // console.log("here");
     const date = new Date();
-    const sid = "S" + Object.keys(Survey.findAll()).length + 1;
+    const surveys = await Survey.findAll();
+    console.log(surveys);
+    const sid = "S" + (surveys.length + 1);
+    console.log("SID ", sid);
+    const metadata = req.body.metadata;
     await Survey.create({
       SID: sid,
-      Creator: req.body.uid,
+      Creator: metadata.uid,
+      Title: req.body.data[0].title.text,
       CreatedAt:
         date.getFullYear() +
         "-" +
@@ -71,8 +76,20 @@ export const newSurvey = async (req, res) => {
         date.getMinutes() +
         ":" +
         date.getSeconds(),
-      OpenFrom: req.body.openFrom,
-      OpenTill: req.body.openTill,
+      UpdatedAt:
+        date.getFullYear() +
+        "-" +
+        date.getMonth() +
+        "-" +
+        date.getDate() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds(),
+      OpenFrom: metadata.openFrom,
+      OpenTill: metadata.openTill,
     });
 
     // write json file to disk
@@ -94,4 +111,53 @@ export const newSurvey = async (req, res) => {
   }
 };
 
-export const editSurvey = async (req, res) => {};
+export const editSurvey = async (req, res) => {
+  try {
+    // console.log("here");
+    const date = new Date();
+    // console.log(req.body);
+    const metadata = req.body.metadata;
+    const sid = metadata.sid;
+    await Survey.update(
+      {
+        Title: req.body.data[0].title.text,
+        UpdatedAt:
+          date.getFullYear() +
+          "-" +
+          date.getMonth() +
+          "-" +
+          date.getDate() +
+          " " +
+          date.getHours() +
+          ":" +
+          date.getMinutes() +
+          ":" +
+          date.getSeconds(),
+        OpenFrom: metadata.openFrom,
+        OpenTill: metadata.openTill,
+      },
+      {
+        where: {
+          SID: sid,
+        },
+      }
+    );
+
+    // write json file to disk
+    const data = JSON.stringify(req.body.data);
+    fs.writeFile("./data/surveys/" + sid + ".json", data, (err) => {
+      if (err) {
+        res.json(err);
+        throw err;
+      }
+    });
+
+    // TODO: Send Link
+    res.json({
+      message: "Survey Updated",
+      SID: sid,
+    });
+  } catch (error) {
+    res.json({ message: error.message, error: error, req_data: req.data });
+  }
+};
