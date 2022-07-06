@@ -20,13 +20,34 @@ const templates = {
     type: "TextAnswer",
     question: {
       text: "The Question?",
-      image: "path/to/image.png",
+      image: "",
     },
     answer: {
       text: "The Answer here",
-      image: "path/to/image.png",
+      image: "",
     },
     required: false,
+  },
+  MultipleChoiceSingleCorrect: {
+    qid: 3,
+    type: "MultipleChoiceSingleCorrect",
+    question: {
+      text: "The Question for choices?",
+      image: "",
+    },
+    options: [
+      {
+        oid: 1,
+        text: "Choice 1",
+        image: "",
+      },
+      {
+        oid: 2,
+        text: "Choice 2",
+        image: "",
+      },
+    ],
+    chosen: -1,
   },
 };
 
@@ -54,7 +75,7 @@ const EditSurvey = (props) => {
   const [surveys, setSurvey] = useState([]);
   // console.log(surveys);
   const create = props.create;
-  const [editable, setEditable] = useState(1);
+  const [editable, setEditable] = useState(true);
   const [openFrom, setOpenFrom] = useState("");
   const [openTill, setOpenTill] = useState("");
   if (create && surveys.length == 0) {
@@ -94,7 +115,7 @@ const EditSurvey = (props) => {
     // console.log(qid, newType, getIndexFromQid(qid));
     const ind = getIndexFromQid(qid);
     var surveys2 = JSON.parse(JSON.stringify(surveys));
-    surveys2[ind] = templates[newType];
+    surveys2[ind] = JSON.parse(JSON.stringify(templates[newType]));
     surveys2[ind].qid = qid;
     // console.log(surveys2);
     setSurvey(surveys2);
@@ -159,7 +180,7 @@ const EditSurvey = (props) => {
       </div>
     );
   }
-  console.log(openFrom);
+  // console.log(openFrom);
 
   return (
     <div id="TheSurveys">
@@ -184,7 +205,7 @@ const EditSurvey = (props) => {
         id="openTill"
         name="openTill"
         value={openTill}
-        onChange={(e) => setOpenTill(e.target.value.replace("T", " ") + ":00")}
+        onChange={(e) => setOpenTill(e.target.value.replace("T", " ") + ":59")}
       />
       <br />
       <br />
@@ -211,6 +232,9 @@ const EditSurvey = (props) => {
               >
                 <option value="TextAnswer">Text Answer</option>
                 <option value="Title">Title</option>
+                <option value="MultipleChoiceSingleCorrect">
+                  Multiple Choice Single Correct
+                </option>
               </select>
               <button onClick={(e) => deleteQuestionBlock(survey.qid)}>
                 delete
@@ -227,6 +251,7 @@ const EditSurvey = (props) => {
         Add
       </button>
       <button onClick={submitSurvey}>Submit</button>
+      <button onClick={(e) => console.log(surveys)}>check</button>
     </div>
   );
 };

@@ -19,6 +19,14 @@ export const QuestionBlock = (props) => {
         setEditable={props.setEditable}
       />
     );
+  } else if (props.type == "MultipleChoiceSingleCorrect") {
+    return (
+      <MultipleChoiceSingleCorrect
+        edit={props.edit}
+        data={props.data}
+        setEditable={props.setEditable}
+      />
+    );
   }
 };
 
@@ -131,30 +139,67 @@ export const MultipleChoiceSingleCorrect = (props) => {
   const [questionImage, setQuestionImage] = useState("");
   const [textQuestion, setTextQuestion] = useState("");
   const [options, setOptions] = useState([]);
-  const [optionImages, setOptionImages] = useState([]);
   const [selected, setSelected] = useState("");
   const data = props.data;
+  const [maxOid, setMaxOid] = useState(3);
+  // console.log(data.question);
+
+  if (textQuestion == "") setTextQuestion(data.question.text);
+  if (options.length == 0) setOptions(data.options);
+
+  const addOption = () => {
+    data.options.push({
+      oid: maxOid,
+      text: "Other option",
+      image: "",
+    });
+    setMaxOid(maxOid + 1);
+    setOptions(data.options);
+  };
+
+  const removeOption = (oid) => {
+    data.options = data.options.filter((option) => {
+      return option.oid != oid;
+    });
+    setOptions(data.options);
+    // console.log(data);
+    // console.log(options);
+  };
 
   const optionSelected = async (option) => {
     console.log(option);
   };
 
   return (
-    <div>
-      <hr />
-      <p>{textQuestion}</p>
-      <p>
-        <img src={questionImage} />
-      </p>
-      <hr />
-      {options.map((option, i) => {
-        <div>
-          <input type="radio" id="radio" onClick={optionSelected} />;
-          <br />
-        </div>;
-      })}
+    <div id={data.qid}>
+      <div>{textQuestion}</div>
 
-      <hr />
+      <img src={questionImage} />
+
+      {options.map((option, i) => (
+        <div key={i}>
+          <input
+            type="radio"
+            id={data.qid + "op_" + option.oid}
+            name={data.qid}
+            onClick={optionSelected}
+          />
+          {option.text}
+          {options.length == 1 || (
+            <button
+              onClick={(e) => {
+                removeOption(option.oid);
+              }}
+            >
+              X
+            </button>
+          )}
+          <br />
+        </div>
+      ))}
+      <div>
+        <button onClick={addOption}>Add option</button>
+      </div>
     </div>
   );
 };
