@@ -81,7 +81,7 @@ const EditSurvey = (props) => {
       // console.log(survey.qid, qid);
       if (!fl) {
         if (survey.qid == qid) {
-          console.log(qid, ind);
+          // console.log(qid, ind);
           fl = true;
         }
         ind++;
@@ -91,7 +91,7 @@ const EditSurvey = (props) => {
   };
 
   const changeQuestionType = (qid, newType) => {
-    console.log(qid, newType, getIndexFromQid(qid));
+    // console.log(qid, newType, getIndexFromQid(qid));
     const ind = getIndexFromQid(qid);
     var surveys2 = JSON.parse(JSON.stringify(surveys));
     surveys2[ind] = templates[newType];
@@ -120,7 +120,13 @@ const EditSurvey = (props) => {
         .get("http://localhost:5000/survey/" + sid)
         .then((response) => {
           setSurvey(response.data.data);
-          // console.log(response);
+          // console.log(response.data.metadata);
+          setOpenFrom(
+            response.data.metadata.OpenFrom.substring(0, 16).replace("T", " ")
+          );
+          setOpenTill(
+            response.data.metadata.OpenTill.substring(0, 16).replace("T", " ")
+          );
         });
     }
   };
@@ -153,15 +159,21 @@ const EditSurvey = (props) => {
       </div>
     );
   }
+  console.log(openFrom);
+
   return (
-    <div id="The surveys">
+    <div id="TheSurveys">
       <label htmlFor="openFrom">Open From</label>
       <input
         type="datetime-local"
         id="openFrom"
         name="openFrom"
+        value={openFrom}
         onChange={(e) => {
-          setOpenFrom(e.target.value.replace("T", " ") + ":00");
+          console.log(openFrom);
+          setOpenFrom(e.target.value.replace("T", " ") + ":59");
+          // setOpenFromDate(new Date(openFrom));
+          // console.log(openFromDate);
           // console.log(e.target.value.replace("T", " ") + ":00");
         }}
       />
@@ -171,6 +183,7 @@ const EditSurvey = (props) => {
         type="datetime-local"
         id="openTill"
         name="openTill"
+        value={openTill}
         onChange={(e) => setOpenTill(e.target.value.replace("T", " ") + ":00")}
       />
       <br />

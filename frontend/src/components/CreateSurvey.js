@@ -35,6 +35,7 @@ export const CreateSurvey = (props) => {
   const [SID, setSID] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const history = useNavigate();
+  const date = new Date();
   // useEffect(() => {
   //   getUser();
   // });
@@ -57,8 +58,30 @@ export const CreateSurvey = (props) => {
         data: surveys,
         metadata: {
           uid: user,
-          openFrom: "2000-01-01",
-          openTill: "2030-12-31",
+          openFrom:
+            date.getFullYear() +
+            "-" +
+            date.getMonth() +
+            "-" +
+            date.getDate() +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes() +
+            ":" +
+            date.getSeconds(),
+          openTill:
+            date.getFullYear() +
+            "-" +
+            date.getMonth() +
+            "-" +
+            (date.getDate() + 1) +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes() +
+            ":" +
+            date.getSeconds(),
         },
       })
       .then((response) => {
