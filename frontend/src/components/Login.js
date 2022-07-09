@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { back_ip, back_port } from "../urls";
 
 axios.defaults.withCredentials = true;
 
@@ -10,9 +11,9 @@ const Login = () => {
   const [loginError, setLoginError] = useState(false);
   const history = useNavigate();
   const login = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     await axios
-      .post("http://localhost:5000/login", {
+      .post("http://" + back_ip + ":" + back_port + "/login", {
         uid: uid,
         passwd: passwd,
       })

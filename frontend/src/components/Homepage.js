@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { TextAnswer } from "./QuestionBlock";
+import { back_ip, back_port } from "../urls";
 
 const HomePage = () => {
   const [surveys, setSurveys] = useState([]);
@@ -18,29 +19,35 @@ const HomePage = () => {
   }, [isLoggedIn]);
 
   const getSurveys = async () => {
-    await axios.get("http://localhost:5000/surveys").then((response) => {
-      // console.log(response.data);
-      setSurveys(response.data);
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/surveys")
+      .then((response) => {
+        // console.log(response.data);
+        setSurveys(response.data);
+      });
   };
 
   const getUser = async () => {
-    await axios.get("http://localhost:5000/login").then((response) => {
-      // console.log(response.data);
-      if (response.data.loggedIn) {
-        setUsername(response.data.user.Name);
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/login")
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.loggedIn) {
+          setUsername(response.data.user.Name);
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
   };
 
   const logout = async () => {
-    await axios.get("http://localhost:5000/logout").then((response) => {
-      setUsername("");
-      setIsLoggedIn(false);
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/logout")
+      .then((response) => {
+        setUsername("");
+        setIsLoggedIn(false);
+      });
   };
 
   const obj = {

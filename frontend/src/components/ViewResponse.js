@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ResponseBlock } from "./ResponseBlock";
+import { back_ip, back_port } from "../urls";
 
 const ViewResponse = (props) => {
   const rid = props.rid;
@@ -9,7 +10,7 @@ const ViewResponse = (props) => {
 
   const getResponse = async () => {
     await axios
-      .get("http://localhost:5000/response/" + rid)
+      .get("http://" + back_ip + ":" + back_port + "/response/" + rid)
       .then((response) => {
         setResponse(response.data.data);
         // console.log(response.data.data);

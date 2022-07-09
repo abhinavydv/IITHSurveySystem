@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoginRequest from "./LoginRequest";
+import { front_ip, front_port, back_ip, back_port } from "../urls";
 
 const templates = {
   Title: {
@@ -41,21 +42,23 @@ export const CreateSurvey = (props) => {
   //   getUser();
   // });
   const getUser = async () => {
-    await axios.get("http://localhost:5000/login").then((response) => {
-      // console.log(response.data);
-      if (response.data.loggedIn) {
-        setIsLoggedIn(true);
-        setUser(response.data.user.UID);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/login")
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.loggedIn) {
+          setIsLoggedIn(true);
+          setUser(response.data.user.UID);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
   };
 
   const submitSurvey = async () => {
     // e.preventDefault();
     await axios
-      .post("http://localhost:5000/survey", {
+      .post("http://" + back_ip + ":" + back_port + "/survey", {
         data: surveys,
         metadata: {
           uid: user,

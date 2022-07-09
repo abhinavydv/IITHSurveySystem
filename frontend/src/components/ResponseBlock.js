@@ -145,7 +145,7 @@ export const MultipleChoiceSingleCorrect = (props) => {
             id={data.qid + "op_" + option.oid}
             name={data.qid}
             checked={option.oid == selected}
-            onClick={(e) => {
+            onChange={(e) => {
               optionSelected(option.oid);
             }}
             readOnly={props.viewOnly}
@@ -177,7 +177,7 @@ const CheckedInput = (props) => {
       type="checkbox"
       id={props.qid + "op_" + props.oid}
       checked={checked}
-      onClick={(e) => {
+      onChange={(e) => {
         if (!props.viewOnly) {
           if (checked) {
             props.removeChosen(props.oid);

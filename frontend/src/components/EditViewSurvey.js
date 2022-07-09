@@ -6,6 +6,7 @@ import LoginRequest from "./LoginRequest";
 import TakeSurvey from "./TakeSurvey";
 import ViewResponse from "./ViewResponse";
 import ViewResponses from "./ViewResponses";
+import { back_ip, back_port } from "../urls";
 
 const EditViewSurvey = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,15 +15,25 @@ const EditViewSurvey = (props) => {
     getUser();
   });
   const getUser = async () => {
-    await axios.get("http://localhost:5000/login").then((response) => {
-      // console.log(response.data);
-      if (response.data.loggedIn) {
-        setIsLoggedIn(true);
-        setUser(response.data.user.UID);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/login")
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.loggedIn) {
+          setIsLoggedIn(true);
+          setUser(response.data.user.UID);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
+  };
+
+  const getSummary = async () => {
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/summary/" + sid)
+      .then((response) => {
+        console.log(response.data);
+      });
   };
 
   const [view, setView] = useState("EditSurvey");
@@ -47,6 +58,13 @@ const EditViewSurvey = (props) => {
           }}
         >
           Responses
+        </button>
+        <button
+          onClick={(e) => {
+            getSummary();
+          }}
+        >
+          Summary
         </button>
       </div>
       <div>

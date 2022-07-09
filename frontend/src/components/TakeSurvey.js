@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoginRequest from "./LoginRequest";
 import { ResponseBlock } from "./ResponseBlock";
+import { back_ip, back_port } from "../urls";
 
 const TakeSurvey = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +12,7 @@ const TakeSurvey = (props) => {
     getUser();
   });
   const getUser = async () => {
-    await axios.get("http://localhost:5000/login").then((response) => {
+    await axios.get("http://" + back_ip + ":" + back_port + "/login").then((response) => {
       // console.log(response.data);
       if (response.data.loggedIn) {
         setIsLoggedIn(true);
@@ -33,14 +34,14 @@ const TakeSurvey = (props) => {
   });
 
   const getResponses = async () => {
-    await axios.get("http://localhost:5000/survey/" + sid).then((response) => {
+    await axios.get("http://" + back_ip + ":" + back_port + "/survey/" + sid).then((response) => {
       setResponses(response.data.data);
     });
   };
 
   const submitResponse = async () => {
     await axios
-      .post("http://localhost:5000/response", {
+      .post("http://" + back_ip + ":" + back_port + "/response", {
         response: responses,
         metadata: {
           sid: sid,

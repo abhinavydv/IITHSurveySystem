@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { back_ip, back_port } from "../urls";
 
 const Register = () => {
   const [uid, setUid] = useState("");
   const [name, setName] = useState("");
   const [passwd, setPasswd] = useState("");
-  const history = useNavigate()
+  const history = useNavigate();
   const register = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/register", {
+    await axios.post("http://" + back_ip + ":" + back_port + "/register", {
       uid: uid,
       name: name,
       passwd: passwd,

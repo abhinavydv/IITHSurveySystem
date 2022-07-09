@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { QuestionBlock } from "./QuestionBlock";
+import { front_ip, front_port, back_ip, back_port } from "../urls";
 
 const templates = {
   Title: {
@@ -23,7 +24,7 @@ const templates = {
       image: "",
     },
     answer: {
-      text: "The Answer here",
+      text: "",
       image: "",
     },
     required: false,
@@ -111,15 +112,17 @@ const EditSurvey = (props) => {
     getUser();
   });
   const getUser = async () => {
-    await axios.get("http://localhost:5000/login").then((response) => {
-      // console.log(response.data);
-      if (response.data.loggedIn) {
-        setIsLoggedIn(true);
-        setUser(response.data.user.UID);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/login")
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.loggedIn) {
+          setIsLoggedIn(true);
+          setUser(response.data.user.UID);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
   };
 
   const { sid } = useParams();
@@ -187,7 +190,7 @@ const EditSurvey = (props) => {
   const getSurvey = async () => {
     if (surveys.length == 0) {
       await axios
-        .get("http://localhost:5000/survey/" + sid)
+        .get("http://" + back_ip + ":" + back_port + "/survey/" + sid)
         .then((response) => {
           setSurvey(response.data.data);
           // console.log(response.data.metadata);
@@ -204,15 +207,18 @@ const EditSurvey = (props) => {
   const submitSurvey = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:5000/survey/" + (sid ? sid : ""), {
-        data: surveys,
-        metadata: {
-          sid: sid,
-          uid: user,
-          openFrom: openFrom,
-          openTill: openTill,
-        },
-      })
+      .post(
+        "http://" + back_ip + ":" + back_port + "/survey/" + (sid ? sid : ""),
+        {
+          data: surveys,
+          metadata: {
+            sid: sid,
+            uid: user,
+            openFrom: openFrom,
+            openTill: openTill,
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
       });

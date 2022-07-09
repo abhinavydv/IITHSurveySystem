@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoginRequest from "./LoginRequest";
+import { back_ip, back_port } from "../urls";
 
 const ViewResponses = (props) => {
   const { sid } = useParams();
@@ -13,7 +14,7 @@ const ViewResponses = (props) => {
 
   const getResponses = async () => {
     await axios
-      .get("http://localhost:5000/responses/" + sid)
+      .get("http://" + back_ip + ":" + back_port + "/responses/" + sid)
       .then((response) => {
         // console.log(response.data);
         setResponses(response.data);
