@@ -1,5 +1,6 @@
 import Response from "../models/responseModel.js";
 import fs from "fs";
+import { generateSummary } from "./Summary.js";
 
 export const getAllResponses = async (req, res) => {
   try {
@@ -115,6 +116,8 @@ export const newResponse = async (req, res) => {
         throw err;
       }
     });
+
+    await generateSummary(req.body.metadata.sid);
 
     res.json({ message: "Response recorded" });
   } catch (error) {

@@ -22,11 +22,11 @@ app.use(
 );
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+ 
 app.use(
   session({
     key: "userId",
-    secret: "aejrkfriyrqtl3ndy7tr454y8g5fyqoitfyix48ry137tp",
+    secret: "aejrkfriyrqtl3ndufhruifhWEKFGUUy7tr454y8g5fyqoitfyix48ry137tp",
     resave: false,
     saveUninitialized: false,
     cookie: {

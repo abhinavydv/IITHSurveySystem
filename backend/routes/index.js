@@ -5,6 +5,7 @@ import {
   getResponsesBySID,
   newResponse,
 } from "../controllers/Response.js";
+import { getSummary } from "../controllers/Summary.js";
 import {
   editSurvey,
   getAllSurveys,
@@ -31,4 +32,5 @@ router.post("/register", newUser);
 router.get("/login", getLoggedInUser);
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
+router.get("/summary/:sid", getSummary);
 export default router;
