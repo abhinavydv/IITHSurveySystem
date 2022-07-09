@@ -1,65 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./css/rating.css";
 
-export const QuestionBlock = (props) => {
+export const ResponseBlock = (props) => {
   if (props.type == "Title") {
-    return (
-      <TitleDescription
-        edit={props.edit}
-        data={props.data}
-        setEditable={props.setEditable}
-      />
-    );
+    return <TitleDescription data={props.data} viewOnly={props.viewOnly} />;
   } else if (props.type == "TextAnswer") {
-    return (
-      <TextAnswer
-        edit={props.edit}
-        data={props.data}
-        setEditable={props.setEditable}
-      />
-    );
+    return <TextAnswer data={props.data} viewOnly={props.viewOnly} />;
   } else if (props.type == "MultipleChoiceSingleCorrect") {
     return (
       <MultipleChoiceSingleCorrect
-        edit={props.edit}
         data={props.data}
-        setEditable={props.setEditable}
+        viewOnly={props.viewOnly}
       />
     );
   } else if (props.type == "MultipleChoiceMultipleCorrect") {
     return (
       <MultipleChoiceMultipleCorrect
-        edit={props.edit}
         data={props.data}
-        setEditable={props.setEditable}
+        viewOnly={props.viewOnly}
       />
     );
   } else if (props.type == "Date") {
-    return (
-      <Date
-        edit={props.edit}
-        data={props.data}
-        setEditable={props.setEditable}
-      />
-    );
+    return <Date data={props.data} viewOnly={props.viewOnly} />;
   } else if (props.type == "Time") {
-    return (
-      <Time
-        edit={props.edit}
-        data={props.data}
-        setEditable={props.setEditable}
-      />
-    );
+    return <Time data={props.data} viewOnly={props.viewOnly} />;
   } else if (props.type == "Rating") {
-    return (
-      <Rating
-        edit={props.edit}
-        data={props.data}
-        setEditable={props.setEditable}
-      />
-    );
+    return <Rating data={props.data} viewOnly={props.viewOnly} />;
   }
 };
 
@@ -67,7 +34,7 @@ export const TitleDescription = (props) => {
   // console.log(props.edit);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [edit, setEdit] = useState(false);
+  //   const [edit, setEdit] = useState(false);
   const data = props.data;
   if (title != data.title.text) {
     setTitle(data.title.text);
@@ -77,41 +44,14 @@ export const TitleDescription = (props) => {
     setDescription(data.description.text);
   }
 
-  // if (data.title.text == "") {
-  //   data.title.text = "Needed!";
-  // }
-  // if (data.description.text == "") {
-  //   data.description.text = "Needed";
-  // }
-
-  if (edit != props.edit) {
-    setEdit(props.edit);
-  }
+  //   if (edit != props.edit) {
+  //     setEdit(props.edit);
+  //   }
 
   return (
     <div id="title">
-      <div>
-        {(edit && (
-          <input
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-              data.title.text = e.target.value;
-            }}
-          />
-        )) || <div>{title || "Title here"}</div>}
-      </div>
-      <div>
-        {(edit && (
-          <input
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-              data.description.text = e.target.value;
-            }}
-          />
-        )) || <p>{description || "description here"}</p>}
-      </div>
+      <div>{title}</div>
+      <div>{description}</div>
     </div>
   );
 };
@@ -133,7 +73,7 @@ export const TextAnswer = (props) => {
   //   console.log(props);
   // props.obj.a = 5;
   // console.log(props.edit);
-  const [edit, setEdit] = useState(false);
+  //   const [edit, setEdit] = useState(false);
   const [textAnswer, setTextAnswer] = useState("");
   const [textQuestion, setTextQuestion] = useState("");
   const [questionImage, setQuestionImage] = useState("");
@@ -147,96 +87,54 @@ export const TextAnswer = (props) => {
     setTextQuestion(data.question.text);
   }
 
-  if (edit != props.edit) {
-    setEdit(props.edit);
-  }
+  //   if (edit != props.edit) {
+  //     setEdit(props.edit);
+  //   }
 
   return (
     <div>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
+      {textQuestion}
       <div>
         <img src={questionImage} />
       </div>
       <div>
-        {(edit && <input value="" readOnly />) || (
-          <div>{textAnswer || "Short answer text"}</div>
-        )}
+        {
+          <input
+            value={textAnswer}
+            onChange={(e) => {
+              setTextAnswer(e.target.value);
+              data.answer.text = e.target.value;
+            }}
+            readOnly={props.viewOnly}
+          />
+        }
       </div>
     </div>
   );
 };
 
-const Option = (props) => {
-  const edit = props.edit;
-  const data = props.data;
-  const [text, setText] = useState();
-  if (text != data.text) setText(data.text);
-
-  return (
-    (edit && (
-      <input
-        value={text}
-        onChange={(e) => {
-          setText(e.target.value);
-          data.text = e.target.value;
-        }}
-      />
-    )) ||
-    text
-  );
-};
-
 export const MultipleChoiceSingleCorrect = (props) => {
-  const [edit, setEdit] = useState(false);
+  //   const [edit, setEdit] = useState(false);
   const [questionImage, setQuestionImage] = useState("");
   const [textQuestion, setTextQuestion] = useState("");
   const [options, setOptions] = useState([]);
+  const [selected, setSelected] = useState("");
   const data = props.data;
-  const [maxOid, setMaxOid] = useState(3);
   // console.log(data.question);
 
   if (textQuestion != data.question.text) setTextQuestion(data.question.text);
-  if (options.length != data.options.length) setOptions(data.options);
-  if (edit != props.edit) setEdit(props.edit);
+  if (options != data.options) setOptions(data.options);
+  if (selected != data.chosen) setSelected(data.chosen);
+  // console.log(selected, data.selected);
 
-  const addOption = () => {
-    data.options.push({
-      oid: maxOid,
-      text: "Other option",
-      image: "",
-    });
-    setMaxOid(maxOid + 1);
-    setOptions(data.options);
-  };
-
-  const removeOption = (oid) => {
-    data.options = data.options.filter((option) => {
-      return option.oid != oid;
-    });
-    setOptions(data.options);
-    // console.log(data);
-    // console.log(options);
+  const optionSelected = async (oid) => {
+    setSelected(oid);
+    data.chosen = oid;
   };
 
   return (
     <div id={data.qid}>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
+      <div>{textQuestion}</div>
 
       <img src={questionImage} />
 
@@ -246,100 +144,123 @@ export const MultipleChoiceSingleCorrect = (props) => {
             type="radio"
             id={data.qid + "op_" + option.oid}
             name={data.qid}
-            checked={false}
-            readOnly
+            checked={option.oid == selected}
+            onClick={(e) => {
+              optionSelected(option.oid);
+            }}
+            readOnly={props.viewOnly}
           />
-          <Option edit={edit} data={option} />
-          {options.length == 1 || (
-            <button
-              onClick={(e) => {
-                removeOption(option.oid);
-              }}
-            >
-              X
-            </button>
-          )}
+          {option.text}
           <br />
         </div>
       ))}
-      <div>
-        <button onClick={addOption}>Add option</button>
-      </div>
     </div>
   );
 };
 
+const CheckedInput = (props) => {
+  const [checked, setChecked] = useState(false);
+  if (checked != props.data.checked) {
+    setChecked(props.data.checked);
+  }
+
+  // var value = props.oid in props.selected;
+  // useEffect(() => {
+  //   const value = props.data.chosen.findIndex((o) => o == props.oid) != -1;
+  //   console.log(value, checked);
+
+  //   if (checked != value) setChecked(value);
+  // });
+
+  return (
+    <input
+      type="checkbox"
+      id={props.qid + "op_" + props.oid}
+      checked={checked}
+      onClick={(e) => {
+        if (!props.viewOnly) {
+          if (checked) {
+            props.removeChosen(props.oid);
+            props.data.checked = false;
+            setChecked(false);
+          } else {
+            props.addChosen(props.oid);
+            props.data.checked = true;
+            setChecked(true);
+          }
+        }
+        // console.log(e.target, checked);
+        // console.log(
+        //   props.data.chosen,
+        //   props.oid,
+        //   props.data.chosen.findIndex((o) => o == props.oid) != -1
+        // );
+      }}
+      readOnly
+    />
+  );
+};
+
 export const MultipleChoiceMultipleCorrect = (props) => {
-  const [edit, setEdit] = useState(false);
+  //   const [edit, setEdit] = useState(false);
   const [questionImage, setQuestionImage] = useState("");
   const [textQuestion, setTextQuestion] = useState("");
   const [options, setOptions] = useState([]);
   const data = props.data;
-  const [maxOid, setMaxOid] = useState(3);
   // console.log(data.question);
 
   if (textQuestion != data.question.text) setTextQuestion(data.question.text);
-  if (options.length != data.options.length) setOptions(data.options);
-  if (edit != props.edit) setEdit(props.edit);
+  if (options != data.options) setOptions(data.options);
+  // if (selected != data.chosen) setSelected(data.chosen);
+  // console.log(selected, data.selected);
 
-  const addOption = () => {
-    data.options.push({
-      oid: maxOid,
-      text: "Other option",
-      image: "",
-      checked: false,
-    });
-    setMaxOid(maxOid + 1);
-    setOptions(data.options);
+  const addChosen = (oid) => {
+    data.chosen.push(oid);
+    // setSelected(data.chosen);
+    // console.log("Added", data.chosen);
   };
 
-  const removeOption = (oid) => {
-    data.options = data.options.filter((option) => {
-      return option.oid != oid;
+  const removeChosen = (oid) => {
+    data.chosen = data.chosen.filter((o) => {
+      return o != oid;
     });
-    setOptions(data.options);
-    // console.log(data);
-    // console.log(options);
+    // setSelected(data.chosen);
+    // console.log("removed", data.chosen);
   };
 
   return (
     <div id={data.qid}>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
+      <div>{textQuestion}</div>
 
       <img src={questionImage} />
 
       {options.map((option, i) => (
         <div key={i}>
-          <input
+          {/* <input
             type="checkbox"
             id={data.qid + "op_" + option.oid}
-            checked={false}
+            name={data.qid}
+            checked={contains(selected, option.oid)}
+            onClick={(e) => {
+              if (!props.viewOnly) {
+                if (e.target.value == false) removeChosen(option.oid);
+                else addChosen(option.oid);
+              }
+            }}
             readOnly
+          /> */}
+          <CheckedInput
+            oid={option.oid}
+            qid={data.qid}
+            addChosen={addChosen}
+            removeChosen={removeChosen}
+            viewOnly={props.viewOnly}
+            data={option}
           />
-          <Option edit={edit} data={option} />
-          {options.length == 1 || (
-            <button
-              onClick={(e) => {
-                removeOption(option.oid);
-              }}
-            >
-              X
-            </button>
-          )}
+          {option.text}
           <br />
         </div>
       ))}
-      <div>
-        <button onClick={addOption}>Add option</button>
-      </div>
     </div>
   );
 };
@@ -373,11 +294,21 @@ const Date = (props) => {
         <img src={questionImage} />
       </div>
       <div>
-        <input type="date" value={date} readOnly />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => {
+            if (!props.readOnly) {
+              setDate(e.target.value);
+              data.date = e.target.value;
+            }
+          }}
+        />
       </div>
     </div>
   );
 };
+
 const Time = (props) => {
   const [edit, setEdit] = useState(false);
   const [textQuestion, setTextQuestion] = useState("");
@@ -407,7 +338,18 @@ const Time = (props) => {
         <img src={questionImage} />
       </div>
       <div>
-        <input type="time" value={time} readOnly />
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => {
+            if (!props.readOnly) {
+              setTime(e.target.value);
+              data.time = e.target.value;
+              // console.log(e.target.value);
+            }
+          }}
+          // readOnly
+        />
       </div>
     </div>
   );
@@ -426,7 +368,11 @@ const Rating = (props) => {
   if (edit != props.edit) {
     setEdit(props.edit);
   }
-  if (rating != data.time) setRating(data.time);
+  if (rating != data.rating) {
+    setRating(data.rating);
+    setStyle({ "--value": data.rating });
+  }
+  // console.log(data.rating);
 
   return (
     <div>
@@ -453,12 +399,15 @@ const Rating = (props) => {
           style={style}
           type="range"
           value={rating}
-          // onChange={(e) => {
-          //   setRating(e.target.value);
-          //   // console.log(e.target.value);
-          //   setStyle({ "--value": e.target.value });
-          // }}
-          readOnly
+          onChange={(e) => {
+            if (!props.readOnly) {
+              setRating(e.target.value);
+              // console.log(e.target.value);
+              setStyle({ "--value": e.target.value });
+              data.rating = e.target.value;
+            }
+          }}
+          readOnly={props.readOnly}
         />
       </div>
     </div>

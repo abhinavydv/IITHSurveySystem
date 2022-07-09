@@ -49,6 +49,59 @@ const templates = {
     ],
     chosen: -1,
   },
+  MultipleChoiceMultipleCorrect: {
+    qid: 4,
+    type: "MultipleChoiceMultipleCorrect",
+    question: {
+      text: "The Question for choices?",
+      image: "",
+    },
+    options: [
+      {
+        oid: 1,
+        text: "Choice 1",
+        image: "",
+        checked: false,
+      },
+      {
+        oid: 2,
+        text: "Choice 2",
+        image: "",
+        checked: false,
+      },
+    ],
+    chosen: [],
+  },
+  Date: {
+    qid: 5,
+    type: "Date",
+    question: {
+      text: "Enter a date",
+      image: "",
+    },
+    date: "",
+    required: false,
+  },
+  Time: {
+    qid: 6,
+    type: "Time",
+    question: {
+      text: "Enter a time",
+      image: "",
+    },
+    time: "",
+    required: false,
+  },
+  Rating: {
+    qid: 7,
+    type: "Rating",
+    question: {
+      text: "Rate us",
+      image: "",
+    },
+    rating: 3,
+    required: false,
+  },
 };
 
 const EditSurvey = (props) => {
@@ -74,21 +127,17 @@ const EditSurvey = (props) => {
   // console.log(props);
   const [surveys, setSurvey] = useState([]);
   // console.log(surveys);
-  const create = props.create;
   const [editable, setEditable] = useState(true);
   const [openFrom, setOpenFrom] = useState("");
   const [openTill, setOpenTill] = useState("");
-  if (create && surveys.length == 0) {
-    setSurvey([templates.Title, templates.TextAnswer]);
-    // console.log(surveys);
-  }
 
   const [maxQid, setMaxQid] = useState(3);
   // console.log(maxQid);
 
   const addQuestionBlock = () => {
     const survey = JSON.parse(JSON.stringify(templates.TextAnswer));
-    survey.qid = maxQid;
+    survey.qid = surveys[surveys.length - 1].qid + 1;
+    // console.log(surveys);
     setMaxQid(maxQid + 1);
     // console.log(survey);
     // console.log(getQid());
@@ -173,17 +222,17 @@ const EditSurvey = (props) => {
 
   // console.log(surveys);
 
-  if (!isLoggedIn) {
-    return (
-      <div>
-        <Link to="/login">Please login to continue</Link>
-      </div>
-    );
-  }
+  // if (!isLoggedIn) {
+  //   return (
+  //     <div>
+  //       <Link to="/login">Please login to continue</Link>
+  //     </div>
+  //   );
+  // }
   // console.log(openFrom);
 
   return (
-    <div id="TheSurveys">
+    <div id="TheSurvey">
       <label htmlFor="openFrom">Open From</label>
       <input
         type="datetime-local"
@@ -192,7 +241,9 @@ const EditSurvey = (props) => {
         value={openFrom}
         onChange={(e) => {
           console.log(openFrom);
-          setOpenFrom(e.target.value.replace("T", " ") + ":59");
+          setOpenFrom(
+            e.target.value.replace("T", " ").substring(0, 16) + ":00"
+          );
           // setOpenFromDate(new Date(openFrom));
           // console.log(openFromDate);
           // console.log(e.target.value.replace("T", " ") + ":00");
@@ -205,7 +256,9 @@ const EditSurvey = (props) => {
         id="openTill"
         name="openTill"
         value={openTill}
-        onChange={(e) => setOpenTill(e.target.value.replace("T", " ") + ":59")}
+        onChange={(e) =>
+          setOpenTill(e.target.value.replace("T", " ").substring(0, 16) + ":59")
+        }
       />
       <br />
       <br />
@@ -226,6 +279,8 @@ const EditSurvey = (props) => {
           {survey.qid != 1 && (
             <div>
               <select
+                // defaultChecked={survey.type}
+                defaultValue={survey.type}
                 onChange={(e) => {
                   changeQuestionType(survey.qid, e.target.value);
                 }}
@@ -235,6 +290,12 @@ const EditSurvey = (props) => {
                 <option value="MultipleChoiceSingleCorrect">
                   Multiple Choice Single Correct
                 </option>
+                <option value="MultipleChoiceMultipleCorrect">
+                  Multiple Choice Multiple Correct
+                </option>
+                <option value="Date">Date</option>
+                <option value="Time">Time</option>
+                <option value="Rating">Rating</option>
               </select>
               <button onClick={(e) => deleteQuestionBlock(survey.qid)}>
                 delete

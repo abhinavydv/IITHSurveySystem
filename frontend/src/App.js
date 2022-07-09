@@ -5,6 +5,10 @@ import Register from "./components/Register";
 import EditSurvey from "./components/EditSurvey";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { CreateSurvey } from "./components/CreateSurvey";
+import TakeSurvey from "./components/TakeSurvey";
+import EditViewSurvey from "./components/EditViewSurvey";
+import ViewResponse from "./components/ViewResponse";
+import ViewResponses from "./components/ViewResponses";
 
 function App() {
   return (
@@ -20,7 +24,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               {/* <Route path="/create" element={<EditSurvey create={true} />} /> */}
               <Route path="/create" element={<CreateSurvey />} />
-              <Route path="/edit/:sid" element={<EditSurvey />} />
+              <Route path="/edit/:sid" element={<EditViewSurvey />} />
+              {/* <Route path="/view/:rid" element={<ViewResponse />} /> */}
+              <Route path="/take/:sid" element={<TakeSurvey />} />
             </Routes>
           </div>
         </div>

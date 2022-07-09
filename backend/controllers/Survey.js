@@ -32,19 +32,20 @@ export const getSurveyBySID = async (req, res) => {
       },
     });
 
-    fs.readFile(
-      "./data/surveys/" + req.params.sid + ".json",
-      "utf-8",
-      (err, data) => {
-        if (err) {
-          throw err;
+    if (survey.length > 0)
+      fs.readFile(
+        "./data/surveys/" + req.params.sid + ".json",
+        "utf-8",
+        (err, data) => {
+          if (err) {
+            throw err;
+          }
+          res.json({
+            metadata: survey[0],
+            data: JSON.parse(data),
+          });
         }
-        res.json({
-          metadata: survey[0],
-          data: JSON.parse(data),
-        });
-      }
-    );
+      );
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -57,7 +58,7 @@ export const newSurvey = async (req, res) => {
     const date = new Date();
     const surveys = await Survey.findAll();
     console.log(surveys);
-    const sid = "S" + (surveys.length + 1);
+    const sid = req.session.user.UID + "_S" + (surveys.length + 1);
     console.log("SID ", sid);
     const metadata = req.body.metadata;
     await Survey.create({

@@ -1,6 +1,5 @@
 import Response from "../models/responseModel.js";
-import fs from 'fs'
-
+import fs from "fs";
 
 export const getAllResponses = async (req, res) => {
   try {
@@ -32,21 +31,22 @@ export const getResponseByRID = async (req, res) => {
       },
     });
 
-    fs.readFile(
-      "./data/responses/" + req.params.rid + ".json",
-      "utf-8",
-      (err, data) => {
-        if (err) {
-          throw err;
+    if (response.length > 0)
+      fs.readFile(
+        "./data/responses/" + req.params.rid + ".json",
+        "utf-8",
+        (err, data) => {
+          if (err) {
+            throw err;
+          }
+          res.json({
+            metadata: response[0],
+            data: JSON.parse(data),
+          });
         }
-        res.json({
-          metadata: survey[0],
-          data: data,
-        });
-      }
-    );
+      );
 
-    res.json(response[0]);
+    // res.json(response[0]);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -54,27 +54,62 @@ export const getResponseByRID = async (req, res) => {
 
 export const newResponse = async (req, res) => {
   try {
-    const rid = "R" + Object.keys(Response.findAll()).length + 1;
+    // console.log("called newResponse");
+    // const rid = req.session.user.UID +  "R" + Object.keys(Response.findAll()).length + 1;
+    const rid = req.body.metadata.uid + "_" + req.body.metadata.sid;
     const date = new Date();
-    await Response.create({
-      RID: rid,
-      Respondant: req.body.uid,
-      RespondedAt:
-        date.getFullYear() +
-        "-" +
-        date.getMonth() +
-        "-" +
-        date.getDate() +
-        " " +
-        date.getHours() +
-        ":" +
-        date.getMinutes() +
-        ":" +
-        date.getSeconds(),
-      SID: req.body.sid,
-    });
+    if (
+      (await Response.findOne({
+        where: {
+          RID: rid,
+        },
+      })) == null
+    ) {
+      await Response.create({
+        RID: rid,
+        Respondant: req.body.metadata.uid,
+        RespondedAt:
+          date.getFullYear() +
+          "-" +
+          date.getMonth() +
+          "-" +
+          date.getDate() +
+          " " +
+          date.getHours() +
+          ":" +
+          date.getMinutes() +
+          ":" +
+          date.getSeconds(),
+        SID: req.body.metadata.sid,
+      });
+    } else {
+      await Response.update(
+        {
+          RID: rid,
+          Respondant: req.body.metadata.uid,
+          RespondedAt:
+            date.getFullYear() +
+            "-" +
+            date.getMonth() +
+            "-" +
+            date.getDate() +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes() +
+            ":" +
+            date.getSeconds(),
+          SID: req.body.metadata.sid,
+        },
+        {
+          where: {
+            RID: rid,
+          },
+        }
+      );
+    }
 
-    const data = JSON.stringify(req.body.data);
+    const data = JSON.stringify(req.body.response);
     fs.writeFile("./data/responses/" + rid + ".json", data, (err) => {
       if (err) {
         throw err;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import LoginRequest from "./LoginRequest";
 
 const templates = {
   Title: {
@@ -107,5 +108,8 @@ export const CreateSurvey = (props) => {
       return history("/edit/" + SID);
     }
   });
+
+  if (!isLoggedIn) return <LoginRequest />;
+
   return <div></div>;
 };
