@@ -5,6 +5,26 @@ import LoginRequest from "./LoginRequest";
 import { back_ip, back_port } from "../urls";
 
 const ViewResponses = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState("");
+  const getUser = async () => {
+    await axios
+      .get("http://" + back_ip + ":" + back_port + "/login")
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.loggedIn) {
+          setIsLoggedIn(true);
+          setUser(response.data.user.UID);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  });
+
   const { sid } = useParams();
 
   const [responses, setResponses] = useState([]);
@@ -28,14 +48,31 @@ const ViewResponses = (props) => {
     <div>
       <div>
         {responses.map((response, i) => (
-          <div
-            key={i}
-            onClick={() => {
-              props.setView("ViewResponse");
-              props.setRid(response.RID);
-            }}
-          >
-            {response.RID} {response.RespondedAt}
+          // <div
+          //   key={i}
+          //   className="btn"
+          //   onClick={() => {
+          //     props.setView("ViewResponse");
+          //     props.setRid(response.RID);
+          //   }}
+          // >
+          //   {response.RID} {response.RespondedAt}
+          // </div>
+          <div className="sblock btn" key={i} onClick={() => {}}>
+            <div className="sblockleft">{i + 1}</div>
+
+            <div className="sblockmiddle">{response.Respondant}</div>
+            <div className="sblockright">
+              <input
+                className="input2"
+                type="datetime-local"
+                value={
+                  response.RespondedAt.replace("T", " ").substring(0, 16) +
+                  ":00"
+                }
+                readOnly={true}
+              />
+            </div>
           </div>
         ))}
       </div>

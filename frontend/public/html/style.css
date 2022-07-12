@@ -1,0 +1,156 @@
+.container{
+	width:80%;
+	margin:auto;
+}
+.header_block{
+	border:1px rgb(102, 98, 98) solid;
+	padding:10px;
+	border-radius:15px;
+}
+.my-form{
+	padding:20px;
+}
+
+.my-form .form-group{
+	padding-bottom:15px;
+}
+
+.my-form label{
+	display:block;
+}
+
+.my-form input[type="text"], .my-form textarea{
+	padding:8px;
+	width:100%;
+}
+
+.header_block #main-block{
+	float:left;
+	width:70%;
+	padding:15px;
+	box-sizing: border-box;
+}
+
+.header_block #sidebar{
+	float:right;
+	width:30%;
+	background-color:#333;
+	color:#fff;
+	padding:15px;
+	box-sizing: border-box;
+}
+.cancel_button2{
+    position: relative; top: 0; right:0;
+    /* margin-top: 0vh;
+    margin-bottom: 8vh;
+    float: right; */
+}
+.cancel_button{
+    font-size: 8pt;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.qblock{
+    /* border-radius: 9px; */
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+    border-radius: 8px;
+    border: 2px solid black;
+    height: 20%;
+    width: 70%;
+    padding: 1%;
+}
+.qblockleft{
+    flex-direction: left;
+    width: 70%;
+    padding-right: 2%;
+}
+.qblockmiddle{
+    /* flex-direction: right; */
+    border-left: 2px solid #333;
+    width: 60%;
+    padding-left: 2%;
+}
+.qblockright{
+    flex-direction: right;
+    border-left: 2px solid #333;
+    width: 20%;
+    padding-left: 2%;
+}
+.buttons{
+    float: left;
+}
+.qblockhead{
+    /* border: 1px solid black; */
+    flex-direction: top;
+    height: 30%;
+}
+.qblocktail{
+    flex-direction: bottom;
+    height: 70%;
+}
+/* .qblocktail2{
+    height: 70%;
+    align-content: center;
+} */
+
+/* .add_option{
+    float: left;
+    margin-bottom: 0vh;
+    margin-top: 18vh;
+    float: right;
+
+} */
+
+.input_date{
+    /* align-items: center;
+    align-content: center; */
+    padding-left: 0.5%;
+    padding-top: 1%;
+}
+
+/* .faded{
+    
+} */
+
+nav{
+   position: fixed;
+   top:0;
+   width: 100%;
+   background-color: rgb(199, 201, 190);
+   overflow: auto;
+   height: auto;
+   text-align: center;
+}
+.links {
+   display: inline-block;
+   text-align: center;
+   padding: 14px;
+   color: rgb(0, 0, 0);
+   text-decoration: none;
+   font-size: 17px;
+   font-weight: bolder;
+}
+.links:hover {
+    color :rgb(0, 0, 0);
+    text-decoration: none;
+   border-bottom: 2px solid purple;
+}
+.selected{
+   border-bottom: 2px solid purple;
+}
+.login_page{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+    border-radius: 8px;
+    border: 2px solid rgb(236, 228, 228);
+    height: 20%;
+    width: 70%;
+    padding: 1%;
+}

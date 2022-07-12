@@ -15,14 +15,14 @@ try {
 }
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://172.16.1.139:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
- 
+
 app.use(
   session({
     key: "userId",

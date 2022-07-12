@@ -50,33 +50,21 @@ export const TitleDescription = (props) => {
 
   return (
     <div id="title">
-      <div>{title}</div>
-      <div>{description}</div>
+      <h1>
+        {(title != "" && (
+          <span className="label label-default">{title}</span>
+        )) || <span className="label label-default faded">Title</span>}
+      </h1>
+      {description != "" && (
+        <span className="label label-default">{description}</span>
+      )}
     </div>
   );
 };
 
 export const TextAnswer = (props) => {
-  /*
-    data = {
-      qid: "TheID",
-      type: "TextAnswer",
-      q: {
-        text: "The text",
-        img: "Url of the image",
-      },
-      a: {
-        text: "The answer"
-      }
-    }
-  */
-  //   console.log(props);
-  // props.obj.a = 5;
-  // console.log(props.edit);
-  //   const [edit, setEdit] = useState(false);
   const [textAnswer, setTextAnswer] = useState("");
   const [textQuestion, setTextQuestion] = useState("");
-  const [questionImage, setQuestionImage] = useState("");
   const data = props.data;
 
   if (textAnswer != data.answer.text) {
@@ -93,22 +81,16 @@ export const TextAnswer = (props) => {
 
   return (
     <div>
-      {textQuestion}
-      <div>
-        <img src={questionImage} />
-      </div>
-      <div>
-        {
-          <input
-            value={textAnswer}
-            onChange={(e) => {
-              setTextAnswer(e.target.value);
-              data.answer.text = e.target.value;
-            }}
-            readOnly={props.viewOnly}
-          />
-        }
-      </div>
+      {
+        <input
+          value={textAnswer}
+          onChange={(e) => {
+            setTextAnswer(e.target.value);
+            data.answer.text = e.target.value;
+          }}
+          readOnly={props.viewOnly}
+        />
+      }
     </div>
   );
 };
@@ -134,10 +116,6 @@ export const MultipleChoiceSingleCorrect = (props) => {
 
   return (
     <div id={data.qid}>
-      <div>{textQuestion}</div>
-
-      <img src={questionImage} />
-
       {options.map((option, i) => (
         <div key={i}>
           <input
@@ -230,10 +208,6 @@ export const MultipleChoiceMultipleCorrect = (props) => {
 
   return (
     <div id={data.qid}>
-      <div>{textQuestion}</div>
-
-      <img src={questionImage} />
-
       {options.map((option, i) => (
         <div key={i}>
           {/* <input
@@ -281,30 +255,16 @@ const Date = (props) => {
 
   return (
     <div>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
-      <div>
-        <img src={questionImage} />
-      </div>
-      <div>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => {
-            if (!props.readOnly) {
-              setDate(e.target.value);
-              data.date = e.target.value;
-            }
-          }}
-        />
-      </div>
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => {
+          if (!props.readOnly) {
+            setDate(e.target.value);
+            data.date = e.target.value;
+          }
+        }}
+      />
     </div>
   );
 };
@@ -325,32 +285,18 @@ const Time = (props) => {
 
   return (
     <div>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
-      <div>
-        <img src={questionImage} />
-      </div>
-      <div>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => {
-            if (!props.readOnly) {
-              setTime(e.target.value);
-              data.time = e.target.value;
-              // console.log(e.target.value);
-            }
-          }}
-          // readOnly
-        />
-      </div>
+      <input
+        type="time"
+        value={time}
+        onChange={(e) => {
+          if (!props.readOnly) {
+            setTime(e.target.value);
+            data.time = e.target.value;
+            // console.log(e.target.value);
+          }
+        }}
+        // readOnly
+      />
     </div>
   );
 };
@@ -376,40 +322,37 @@ const Rating = (props) => {
 
   return (
     <div>
-      {(edit && (
-        <input
-          value={textQuestion}
-          onChange={(e) => {
-            setTextQuestion(e.target.value);
-            data.question.text = e.target.value;
-          }}
-        />
-      )) || <div>{textQuestion || "Question Here"}</div>}
-      <div>
-        <img src={questionImage} />
-      </div>
-      <div>
-        <input
-          className="rating"
-          max="5"
-          // onInput={() => {
-          //   this.style.setProperty("--value", this.valueAsNumber);
-          // }}
-          step="1"
-          style={style}
-          type="range"
-          value={rating}
-          onChange={(e) => {
-            if (!props.readOnly) {
-              setRating(e.target.value);
-              // console.log(e.target.value);
-              setStyle({ "--value": e.target.value });
-              data.rating = e.target.value;
-            }
-          }}
-          readOnly={props.readOnly}
-        />
-      </div>
+      <input
+        className="rating"
+        max="5"
+        // onInput={() => {
+        //   this.style.setProperty("--value", this.valueAsNumber);
+        // }}
+        step="1"
+        style={style}
+        type="range"
+        value={rating}
+        onChange={(e) => {
+          if (!props.readOnly) {
+            setRating(e.target.value);
+            // console.log(e.target.value);
+            setStyle({ "--value": e.target.value });
+            data.rating = e.target.value;
+          }
+        }}
+        readOnly={props.readOnly}
+      />
+    </div>
+  );
+};
+
+export const Question = (props) => {
+  // console.log(props);
+  return (
+    <div className="qblockhead">
+      {(props.qn.question && props.qn.question.text != "" && (
+        <span className="label label-default">{props.qn.question.text}</span>
+      )) || <span className="label label-default fade">Question</span>}
     </div>
   );
 };

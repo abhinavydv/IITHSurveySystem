@@ -86,6 +86,21 @@ export const getLoggedInUser = async (req, res) => {
   }
 };
 
+export const getEmail = async (req, res) => {
+  try {
+    if (req.session.user) {
+      const email = await User.findOne({
+        where: {
+          UID: req.body.UID,
+        },
+      });
+      res.json({ email: email });
+    } else {
+      res.json({ err: "You are not logged in!" });
+    }
+  } catch (error) {}
+};
+
 export const logoutUser = async (req, res) => {
   req.session.user = undefined;
   res.json({ loggedIn: false });

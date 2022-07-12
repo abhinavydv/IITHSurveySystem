@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ResponseBlock } from "./ResponseBlock";
+import { ResponseBlock, Question } from "./ResponseBlock";
 import { back_ip, back_port } from "../urls";
 
 const ViewResponse = (props) => {
@@ -23,15 +23,30 @@ const ViewResponse = (props) => {
 
   return (
     <div>
-      Responses
+      {/* Responses */}
       <div>
         {response.map((response_i, i) => (
-          <div key={i}>
-            <ResponseBlock
-              type={response_i.type}
-              data={response_i}
-              viewOnly={true}
-            />
+          // <div key={i}>
+          //   <ResponseBlock
+          //     type={response_i.type}
+          //     data={response_i}
+          //     viewOnly={true}
+          //   />
+          // </div>
+          <div key={i} className="rblock">
+            {response_i.type != "Title" && (
+              <div className="rblockhead">
+                <Question qn={response_i} />
+                <hr />
+              </div>
+            )}
+            <div className="rblocktail">
+              <ResponseBlock
+                type={response_i.type}
+                data={response_i}
+                viewOnly={true}
+              />
+            </div>
           </div>
         ))}
       </div>

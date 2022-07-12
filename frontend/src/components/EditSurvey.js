@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { QuestionBlock } from "./QuestionBlock";
+import { OptionRight, Question, QuestionBlock } from "./QuestionBlock";
 import { front_ip, front_port, back_ip, back_port } from "../urls";
 
 const templates = {
@@ -130,7 +130,7 @@ const EditSurvey = (props) => {
   // console.log(props);
   const [surveys, setSurvey] = useState([]);
   // console.log(surveys);
-  const [editable, setEditable] = useState(true);
+  const [editable, setEditable] = useState(2);
   const [openFrom, setOpenFrom] = useState("");
   const [openTill, setOpenTill] = useState("");
 
@@ -181,6 +181,16 @@ const EditSurvey = (props) => {
     );
   };
 
+  const copyQuestionBlock = (qid) => {
+    const index = getIndexFromQid(qid);
+    var surveys2 = JSON.parse(JSON.stringify(surveys));
+    const copy = JSON.parse(JSON.stringify(surveys[index]));
+    copy.qid = maxQid;
+    setMaxQid(maxQid + 1);
+    surveys2.splice(index, 0, copy);
+    setSurvey(surveys2);
+  };
+
   useEffect(() => {
     if (sid) {
       getSurvey();
@@ -222,6 +232,7 @@ const EditSurvey = (props) => {
       .then((response) => {
         console.log(response);
       });
+    alert("Survey submitted successfully!");
   };
 
   // const a = "ab";
@@ -239,7 +250,7 @@ const EditSurvey = (props) => {
 
   return (
     <div id="TheSurvey">
-      <label htmlFor="openFrom">Open From</label>
+      {/* <label htmlFor="openFrom">Open From</label>
       <input
         type="datetime-local"
         id="openFrom"
@@ -265,9 +276,41 @@ const EditSurvey = (props) => {
         onChange={(e) =>
           setOpenTill(e.target.value.replace("T", " ").substring(0, 16) + ":59")
         }
-      />
-      <br />
-      <br />
+      /> */}
+      <div className="qblock">
+        <div className="qblockleft">
+          <form>
+            <div className="form-row">
+              <div className="col">
+                Open from:{" "}
+                <input
+                  type="datetime-local"
+                  value={openFrom}
+                  onChange={(e) => {
+                    console.log(openFrom);
+                    setOpenFrom(
+                      e.target.value.replace("T", " ").substring(0, 16) + ":00"
+                    );
+                  }}
+                />
+              </div>
+              <div className="col">
+                Open till:{" "}
+                <input
+                  type="datetime-local"
+                  value={openFrom}
+                  onChange={(e) => {
+                    console.log(openTill);
+                    setOpenTill(
+                      e.target.value.replace("T", " ").substring(0, 16) + ":00"
+                    );
+                  }}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
       {surveys.map((survey, i) => (
         <div
           id={"questionBlock" + i}
@@ -276,19 +319,46 @@ const EditSurvey = (props) => {
             setEditable(survey.qid);
           }}
         >
-          <QuestionBlock
-            type={survey.type}
-            data={survey}
-            edit={editable == survey.qid}
-            setEditable={setEditable}
-          />
-          {survey.qid != 1 && (
+          {(survey.type != "Title" && (
+            <div className="qblock">
+              <div className="qblockleft">
+                <Question qn={survey.question} edit={editable == survey.qid} />
+                <hr />
+                <QuestionBlock
+                  type={survey.type}
+                  data={survey}
+                  edit={editable == survey.qid}
+                  setEditable={setEditable}
+                />
+              </div>
+              {editable == survey.qid && (
+                <div>
+                  <OptionRight
+                    qid={survey.qid}
+                    changeQuestionType={changeQuestionType}
+                    deleteQuestionBlock={deleteQuestionBlock}
+                    data={survey}
+                    copyQuestionBlock={copyQuestionBlock}
+                  />
+                </div>
+              )}
+            </div>
+          )) || (
+            <QuestionBlock
+              type="Title"
+              data={survey}
+              edit={editable == survey.qid}
+              setEditable={setEditable}
+            />
+          )}
+          {/* {survey.qid != 1 && (
             <div>
               <select
                 // defaultChecked={survey.type}
                 defaultValue={survey.type}
                 onChange={(e) => {
                   changeQuestionType(survey.qid, e.target.value);
+                  // console.log(e);
                 }}
               >
                 <option value="TextAnswer">Text Answer</option>
@@ -307,18 +377,24 @@ const EditSurvey = (props) => {
                 delete
               </button>
             </div>
-          )}
+          )} */}
         </div>
       ))}
-      <button
-        onClick={(e) => {
-          addQuestionBlock();
-        }}
-      >
-        Add
-      </button>
-      <button onClick={submitSurvey}>Submit</button>
-      <button onClick={(e) => console.log(surveys)}>check</button>
+      <div className="submit-response">
+        <div className="btn buttons" onClick={() => addQuestionBlock()}>
+          <img src="/images/add_option.png" height="25" />
+        </div>
+      </div>
+      <div className="submit-response">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={submitSurvey}
+        >
+          Submit
+        </button>
+      </div>
+      {/* <button onClick={(e) => console.log(surveys)}>check</button> */}
     </div>
   );
 };

@@ -1,0 +1,144 @@
+/* @import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900); */
+.header1 {
+  width: 100%;
+  padding:60px 0;
+  text-align: center;
+  background-color: lightgray;
+  color: rgb(20, 18, 21);
+  /*opacity: 0.4;*/
+}
+
+.hd1 {
+  font-size: 4em;
+  padding: 10px 0;
+  font-weight: 800;
+  font-family: 'Lato';
+  text-align: center;
+}
+
+
+.img1 {
+    width: 10vw;
+    height: 10vw;
+    position: relative;
+    /*top: -24em;*/
+    float: left;
+  }
+.img2{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+} 
+.button1{
+  margin-left: 850px;
+  position: relative;
+  opacity: 0.55;
+}
+h2{
+  text-align: center;
+  font-size: 2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/*.p1{
+  font-size: 1.5em;
+  text-align: center;
+}*/
+
+.div2{
+  display: block;
+  background-color: gray;
+}
+
+.sblock{
+  /* border-radius: 9px; */
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vh;
+  border-radius: 8px;
+  border: 2px solid black;
+  height: 20%;
+  width: 80%;
+  padding: 1%;
+  opacity: 0.6;
+  background-color: whitesmoke;
+}
+.sblockleft{
+  flex-direction: left;
+  width: 10%;
+  padding-right: 2%;
+  
+  text-align: center;
+  font-size: 2em;
+  color: red;
+}
+.sblockmiddle{
+  /* flex-direction: right; */
+  border-left: 2px solid #333;
+  width: 60%;
+  padding-left: 2%;
+  
+  text-align: center;
+  font-size: 2em;
+  color: red;
+  
+}
+.sblockright{
+  flex-direction: right;
+  border-left: 2px solid #333;
+  width: 30%;
+  padding-left: 2%;
+
+  text-align: center;
+  font-size: 2em;
+}
+
+/* hr{
+  color: black;
+  size: 20px;
+} */
+.input2{
+  height: 4vh;
+  width: 16vw;
+  font-size: 0.4em;
+  opacity: 0.4;
+  color: rgb(0, 0, 0);
+}
+/*body{
+  background-image: url('background4.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}*/
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: rgba(0, 0, 0, 0.332);
+  overflow: hidden;
+  
+ /* opacity: 0.5;*/
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: right;
+  color: brown;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 2em;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: red;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+/*.topnav a.active {
+  background-color: #04AA6D;
+  color: brown;
+  font-size: 2em;
+}*/
+

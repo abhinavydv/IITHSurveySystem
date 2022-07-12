@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My CSS Cheat Sheet</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Title and Description -->
+    <div class="container">
+        <div class="header_block">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Title" aria-label="Username"
+                    aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text answer type -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <div class="qblockhead">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Question" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <hr>
+            <div class="qblocktail">
+                <div class="input-group">
+                    <textarea class="form-control" aria-label="With textarea" placeholder="Answer"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="qblockright">
+            <div class="buttons">
+                <!-- <a href="#" class="btn"> -->
+                <img class="btn" src="images/delete_icon.png" height="40" />
+                <!-- </a> -->
+            </div><br />
+            <!-- <hr> -->
+            <div class="block1">
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected value="Title">Title</option>
+                        <option value="TextAnswer">Text</option>
+                        <option value="MultipleChoiceSingleCorrect">Single Choice</option>
+                        <option value="MultipleChoiceMultipleCorrect">Multiple Choice</option>
+                        <option value="Date">Date</option>
+                        <option value="Time">Time</option>
+                        <option value="Rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Required
+                    </label>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block3">
+                <a href="#" class="btn">
+                    <img src="images/copy_icon.png" height="25px">
+                </a>
+            </div>
+            <!-- <hr> -->
+        </div>
+    </div>
+
+    <!-- Multiple Choice - Single Correct type -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <div class="qblockhead">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Question" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <hr>
+            <div class="qblocktail">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                        readonly="true">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Option
+                    </label>
+
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">
+                        <img src="images/add_option.png" height="25" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="qblockright">
+            <div class="buttons">
+                <a href="#" class="btn">
+                    <img src="images/delete_icon.png" height="25" />
+                </a>
+            </div><br>
+            <!-- <hr> -->
+            <div class="block1">
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected value="Title">Title</option>
+                        <option value="TextAnswer">Text</option>
+                        <option value="MultipleChoiceSingleCorrect">Single Choice</option>
+                        <option value="MultipleChoiceMultipleCorrect">Multiple Choice</option>
+                        <option value="Date">Date</option>
+                        <option value="Time">Time</option>
+                        <option value="Rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Required
+                    </label>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block3">
+                <a href="#" class="btn">
+                    <img src="images/copy_icon.png" height="25px">
+                </a>
+            </div>
+            <!-- <hr> -->
+        </div>
+    </div>
+
+    <!-- Multiple Choice - Multiple Correct type -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <div class="qblockhead">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Question" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <hr>
+            <div class="qblocktail">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
+                        readonly="true">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Option
+                    </label>
+
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">
+                        <img src="images/add_option.png" height="25" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="qblockright">
+            <div class="buttons">
+                <a href="#" class="btn">
+                    <img src="images/delete_icon.png" height="25" />
+                </a>
+            </div><br>
+            <!-- <hr> -->
+            <div class="block1">
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected value="Title">Title</option>
+                        <option value="TextAnswer">Text</option>
+                        <option value="MultipleChoiceSingleCorrect">Single Choice</option>
+                        <option value="MultipleChoiceMultipleCorrect">Multiple Choice</option>
+                        <option value="Date">Date</option>
+                        <option value="Time">Time</option>
+                        <option value="Rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Required
+                    </label>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block3">
+                <a href="#" class="btn">
+                    <img src="images/copy_icon.png" height="25px">
+                </a>
+            </div>
+            <!-- <hr> -->
+        </div>
+    </div>
+
+    <!-- Date -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <div class="qblockhead">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Question" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <hr>
+            <div class="qblocktail">
+                <div class="input_date">
+                    <input type="date" readonly="true">
+                </div>
+            </div>
+        </div>
+        <div class="qblockright">
+            <div class="buttons">
+                <a href="#" class="btn">
+                    <img src="images/delete_icon.png" height="25" />
+                </a>
+            </div><br>
+            <!-- <hr> -->
+            <div class="block1">
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected value="Title">Title</option>
+                        <option value="TextAnswer">Text</option>
+                        <option value="MultipleChoiceSingleCorrect">Single Choice</option>
+                        <option value="MultipleChoiceMultipleCorrect">Multiple Choice</option>
+                        <option value="Date">Date</option>
+                        <option value="Time">Time</option>
+                        <option value="Rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Required
+                    </label>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block3">
+                <a href="#" class="btn">
+                    <img src="images/copy_icon.png" height="25px">
+                </a>
+            </div>
+            <!-- <hr> -->
+        </div>
+    </div>
+
+    <!-- Time -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <div class="qblockhead">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Question" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <hr>
+            <div class="qblocktail">
+                <div class="input_date">
+                    <input type="time" readonly="true">
+                </div>
+            </div>
+        </div>
+        <div class="qblockright">
+            <div class="buttons">
+                <a href="#" class="btn">
+                    <img src="images/delete_icon.png" height="25" />
+                </a>
+            </div><br>
+            <!-- <hr> -->
+            <div class="block1">
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected value="Title">Title</option>
+                        <option value="TextAnswer">Text</option>
+                        <option value="MultipleChoiceSingleCorrect">Single Choice</option>
+                        <option value="MultipleChoiceMultipleCorrect">Multiple Choice</option>
+                        <option value="Date">Date</option>
+                        <option value="Time">Time</option>
+                        <option value="Rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Required
+                    </label>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="block3">
+                <a href="#" class="btn">
+                    <img src="images/copy_icon.png" height="25px">
+                </a>
+            </div>
+            <!-- <hr> -->
+        </div>
+    </div>
+    <br>
+
+    <!-- Open from/ Open till block -->
+    <div class="qblock">
+        <div class="qblockleft">
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        Open from: <input type="datetime-local">
+                    </div>
+                    <div class="col">
+                        Open till: <input type="datetime-local">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div>
+        <nav>
+            <a class="links selected" href="#">Edit</a>
+            <a class="links" href="#">Responses</a>
+            <a class="links" href="#">Summary</a>
+        </nav>
+    </div>
+
+    <!-- Login page -->
+
+    <div class="login_page">
+        <form>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="form2Example1" class="form-control" />
+                <label class="form-label" for="form2Example1">Email address</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="form2Example2" class="form-control" />
+                <label class="form-label" for="form2Example2">Password</label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+            <!-- Register buttons -->
+            <div class="text-center">
+                <p>Not a member? <a href="#!">Register</a></p>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <!-- Pills content -->
+    <div class="login_page">
+        <form>
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="registerName" class="form-control" />
+                <label class="form-label" for="registerName">Name</label>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="registerEmail" class="form-control" />
+                <label class="form-label" for="registerEmail">Email</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="registerPassword" class="form-control" />
+                <label class="form-label" for="registerPassword">Password</label>
+            </div>
+
+            <!-- Repeat Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="registerRepeatPassword" class="form-control" />
+                <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-3">Register</button>
+        </form>
+    </div>
+    <!-- Pills content -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
