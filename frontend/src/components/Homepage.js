@@ -38,6 +38,7 @@ const HomePage = () => {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
+          history("/login");
         }
       });
   };
@@ -75,9 +76,9 @@ const HomePage = () => {
     },
   };
 
-  if (!isLoggedIn) {
-    return history("/login");
-  }
+  // if (!isLoggedIn) {
+  //   return history("/login");
+  // }
 
   return (
     // <div>
@@ -148,7 +149,7 @@ const HomePage = () => {
       </div> */}
       <div className="nblock">
         <div className="nblockleft">
-          <Link to="">
+          <Link to="/">
             <img
               className="btn"
               src="../images/logo.png"
@@ -179,8 +180,10 @@ const HomePage = () => {
         </div> */}
         {/* <br /> */}
         <div className="new-survey" title="Create New Survey">
-          <button className="btn " onClick={() => history("/create")}>
-            <img className="img2" src="/images/plus.png" alt="add" />
+          <button className="btn ">
+            <a href="/create">
+              <img className="img2" src="/images/plus.png" alt="add" />
+            </a>
           </button>
         </div>
       </div>
@@ -189,7 +192,9 @@ const HomePage = () => {
         <div
           className="sblock btn"
           key={i}
-          onClick={() => history("/edit/" + survey.SID)}
+          onClick={() => {
+            history("/edit/" + survey.SID);
+          }}
         >
           <div className="sblockleft">{i + 1}</div>
 

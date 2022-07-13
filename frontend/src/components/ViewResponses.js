@@ -58,7 +58,14 @@ const ViewResponses = (props) => {
           // >
           //   {response.RID} {response.RespondedAt}
           // </div>
-          <div className="sblock btn" key={i} onClick={() => {}}>
+          <div
+            className="sblock btn"
+            key={i}
+            onClick={() => {
+              props.setView("ViewResponse");
+              props.setRid(response.RID);
+            }}
+          >
             <div className="sblockleft">{i + 1}</div>
 
             <div className="sblockmiddle">{response.Respondant}</div>
